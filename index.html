@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#35472f">
+  <meta name="description" content="Kelola stok perlengkapan bayi dengan peringatan stok minimum dan pemantauan tanggal kedaluwarsa FEFO.">
+  <title>BabyCare | Sistem Persediaan</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="config.js"></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#dashboard" aria-label="BabyCare, dashboard">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 48 48" role="img"><path d="M18 5h12v5l-2 3v5.1c6 3.1 9 8.6 9 15.1A10.8 10.8 0 0 1 26.2 44h-4.4A10.8 10.8 0 0 1 11 33.2c0-6.5 3-12 9-15.1V13l-2-3V5Z"/><path d="M19 10h10M20 24h8M18 32h12"/></svg>
+        </span>
+        <span class="brand-copy"><strong>BabyCare</strong><small>Sistem Persediaan</small></span>
+      </a>
+
+      <div class="nav-label">MENU UTAMA</div>
+      <nav class="navigation" aria-label="Navigasi utama">
+        <button class="nav-item active" data-view="dashboard"><span class="nav-icon">⌂</span> Dashboard</button>
+        <div class="nav-label nav-label-spaced">MASTER DATA</div>
+        <button class="nav-item" data-view="categories"><span class="nav-icon">▦</span> Kategori</button>
+        <button class="nav-item" data-view="suppliers"><span class="nav-icon">♧</span> Pemasok</button>
+        <button class="nav-item" data-view="products"><span class="nav-icon">▤</span> Produk</button>
+        <button class="nav-item" data-view="movements"><span class="nav-icon">↕</span> Pergerakan Stok</button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="tiny-bottle" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M18 5h12v5l-2 3v5.1c6 3.1 9 8.6 9 15.1A10.8 10.8 0 0 1 26.2 44h-4.4A10.8 10.8 0 0 1 11 33.2c0-6.5 3-12 9-15.1V13l-2-3V5Z"/><path d="M19 10h10M20 24h8M18 32h12"/></svg></div>
+        <p>Merawat stok, merawat si kecil.</p>
+        <span>BabyCare · <span id="today-year"></span></span>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <button id="menu-toggle" class="icon-button menu-toggle" type="button" aria-label="Buka menu">☰</button>
+        <div class="breadcrumb"><span>BabyCare</span><b>/</b><strong id="page-crumb">Dashboard</strong></div>
+        <div class="topbar-actions">
+          <span class="connection-pill" id="connection-status"><i></i><span>Belum terhubung</span></span>
+          <button class="settings-button" id="open-settings" type="button"><span aria-hidden="true">⚙</span> Pengaturan</button>
+        </div>
+      </header>
+
+      <section class="page-content" id="page-content" aria-live="polite"></section>
+    </main>
+  </div>
+
+  <div class="toast-region" id="toast-region" aria-live="polite"></div>
+
+  <dialog class="app-dialog" id="record-dialog">
+    <form id="record-form" method="dialog" data-price-locale="id-ID">
+      <div class="dialog-heading"><div><span class="eyebrow" id="dialog-eyebrow">FORM DATA</span><h2 id="dialog-title">Tambah data</h2></div><button class="close-button" type="button" data-close-dialog aria-label="Tutup">×</button></div>
+      <div class="form-fields" id="form-fields"></div>
+      <div class="dialog-actions"><button class="button button-quiet" type="button" data-close-dialog>Batal</button><button class="button button-primary" type="submit">Simpan data</button></div>
+    </form>
+  </dialog>
+
+  <dialog class="app-dialog settings-dialog" id="settings-dialog">
+    <form id="settings-form" method="dialog">
+      <div class="dialog-heading"><div><span class="eyebrow">KONEKSI DATABASE</span><h2>Hubungkan Supabase</h2></div><button class="close-button" type="button" data-close-dialog aria-label="Tutup">×</button></div>
+      <p class="dialog-intro">Masukkan URL project dan publishable key Supabase. Pengaturan disimpan di browser ini.</p>
+      <label class="field"><span>Project URL</span><input name="url" type="url" placeholder="https://project-id.supabase.co" required autocomplete="url"></label>
+      <label class="field"><span>Publishable key</span><input name="key" type="password" placeholder="sb_publishable_... atau anon key" required autocomplete="off"></label>
+      <p class="security-note">Gunakan publishable/anon key saja. Aktifkan Row Level Security dan kebijakan akses pada tabel Supabase.</p>
+      <div class="dialog-actions"><button class="button button-quiet" type="button" data-close-dialog>Batal</button><button class="button button-primary" type="submit">Simpan & hubungkan</button></div>
+    </form>
+  </dialog>
+</body>
+</html>
